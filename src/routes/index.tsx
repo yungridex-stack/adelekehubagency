@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState, type FormEvent } from "react";
 import { Button } from "../components/button";
-import logoAsset from "../assets/adeleke-logo.png.asset.json";
+import logoAsset from "../assets/adeleke-logo-v2.png.asset.json";
 import heroImage from "../assets/agency-hero.jpg";
 import brandingImage from "../assets/work-branding.jpg";
 import ecommerceImage from "../assets/work-ecommerce.jpg";
@@ -90,7 +90,7 @@ function AgencyPage() {
       <header className="sticky top-0 z-50 border-b border-border/70 bg-background/95 backdrop-blur-md">
         <div className="site-container grid h-20 grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
           <a href="#home" aria-label="Adeleke Hub Agency home" className="flex min-w-0 items-center">
-            <img src={logoAsset.url} alt="Adeleke Hub Agency" className="h-12 w-auto max-w-[190px] object-contain sm:max-w-[230px]" />
+            <img src={logoAsset.url} alt="Adeleke Hub Agency" className="h-14 w-auto max-w-[130px] object-contain sm:max-w-[160px]" />
           </a>
           <nav aria-label="Main navigation" className="hidden items-center gap-6 lg:flex">
             {navItems.map((item) => <a key={item} href={`#${item.toLowerCase()}`} className="text-sm font-semibold text-foreground transition-colors hover:text-primary">{item}</a>)}
