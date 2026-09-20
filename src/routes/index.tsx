@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  ArrowRight, ArrowUpRight, Bot, BriefcaseBusiness, Check, ChevronDown,
+  ArrowLeft, ArrowRight, ArrowUpRight, Bot, BriefcaseBusiness, Check, ChevronDown,
   ChevronLeft, ChevronRight, Code2, Instagram, Linkedin, Mail, Menu, MessageCircle,
   Palette, PenTool, Phone, Quote, ShoppingBag, Sparkles, X,
 } from "lucide-react";
@@ -11,6 +11,16 @@ import heroImage from "../assets/agency-hero.jpg";
 import brandingImage from "../assets/work-branding.jpg";
 import ecommerceImage from "../assets/work-ecommerce.jpg";
 import animationImage from "../assets/work-animation.jpg";
+import atelierNineImage from "../assets/portfolio/atelier-nine.jpg";
+import oriTableImage from "../assets/portfolio/ori-table.jpg";
+import havenRealtyImage from "../assets/portfolio/haven-realty.jpg";
+import kinfolkMarketImage from "../assets/portfolio/kinfolk-market.jpg";
+import relaySaasImage from "../assets/portfolio/relay-saas.jpg";
+import amaBotanicsImage from "../assets/portfolio/ama-botanics.jpg";
+import nnekaAdvisoryImage from "../assets/portfolio/nneka-advisory.jpg";
+import stonebridgeImage from "../assets/portfolio/stonebridge.jpg";
+import afterHoursImage from "../assets/portfolio/after-hours.jpg";
+import fixRightImage from "../assets/portfolio/fixright.jpg";
 
 const whatsappUrl = "https://wa.me/2348118250735";
 const navItems = ["Home", "About", "Services", "Portfolio", "Process", "FAQ", "Contact"];
@@ -39,12 +49,31 @@ const services = [
   { icon: Bot, title: "AI Animation", text: "Create engaging AI-powered animations, product visuals, promotional videos and creative storytelling.", number: "05" },
 ];
 
-const portfolio = [
-  { title: "Identity System", category: "Branding", text: "A flexible visual language designed for distinction.", image: brandingImage },
-  { title: "Commerce Experience", category: "E-commerce", text: "A clear, responsive storefront built around the buyer journey.", image: ecommerceImage },
-  { title: "Product Motion", category: "AI Animation", text: "Cinematic visual storytelling for product campaigns.", image: animationImage },
-  { title: "Launch Campaign", category: "Copywriting", text: "A concise campaign story shaped to inspire action.", image: heroImage },
-  { title: "Digital Presence", category: "Web Design", text: "A premium web experience with a conversion-first structure.", image: ecommerceImage },
+type PortfolioProject = {
+  title: string;
+  slug: string;
+  industry: string;
+  category: "Branding" | "Web Design" | "Copywriting" | "E-commerce" | "AI Animation";
+  service: string;
+  text: string;
+  image: string;
+  challenge: string;
+  approach: string;
+  details: string;
+  services: string[];
+};
+
+const portfolio: PortfolioProject[] = [
+  { title: "Atelier Nine", slug: "atelier-nine", industry: "Fashion / Clothing", category: "E-commerce", service: "Brand identity · E-commerce website", text: "A refined fashion identity and considered shopping experience for a contemporary Nigerian clothing label.", image: atelierNineImage, challenge: "The label needed one coherent expression across garments, packaging and online retail without losing its quiet, editorial character.", approach: "We built the identity around confident typography, a restrained palette and a shopping journey that gives the collection room to breathe.", details: "The system connects garment labels, swing tags, lookbook art direction and responsive store pages. Product information stays clear while generous spacing and editorial imagery establish a premium position.", services: ["Brand identity", "E-commerce design", "Art direction", "Packaging"] },
+  { title: "Ori Table", slug: "ori-table", industry: "Restaurant / Food", category: "Branding", service: "Brand identity · Campaign design", text: "A warm hospitality identity rooted in Nigerian flavour, shared tables and contemporary service.", image: oriTableImage, challenge: "Ori Table needed to feel locally rooted and modern across dine-in, takeaway and social channels.", approach: "A characterful wordmark, earthy palette and botanical illustration system create recognition without leaning on familiar restaurant clichés.", details: "Menus, takeaway packaging, table cards and social templates share the same visual rhythm. Food photography remains the hero while concise copy carries the restaurant’s welcoming voice.", services: ["Brand strategy", "Visual identity", "Menu design", "Social campaign"] },
+  { title: "Haven & Key Realty", slug: "haven-key-realty", industry: "Real Estate", category: "Web Design", service: "Website design · Copywriting", text: "An elegant property platform that turns considered guidance and premium listings into a clear digital experience.", image: havenRealtyImage, challenge: "The agency needed to present high-value homes with credibility while making property discovery feel simple on every screen.", approach: "We paired an editorial visual language with direct navigation, focused property search and reassuring service copy.", details: "The responsive website balances cinematic property photography with useful listing information, floorplans and enquiry paths. Supporting brochures extend the same visual language into viewings and presentations.", services: ["UX strategy", "Website design", "Responsive development", "Copywriting"] },
+  { title: "Kinfolk Market", slug: "kinfolk-market", industry: "Homeware E-commerce", category: "E-commerce", service: "Online store · Product storytelling", text: "A calm online shop that helps everyday homeware feel considered, useful and easy to buy.", image: kinfolkMarketImage, challenge: "A growing homeware retailer needed a clearer product system and a warmer shopping experience across desktop and mobile.", approach: "We organised products around everyday use, simplified filtering and paired practical details with natural product photography.", details: "Collection pages support comparison without visual clutter, while product pages foreground materials, dimensions and delivery. Packaging and digital touchpoints share a quiet sage identity.", services: ["E-commerce strategy", "UI design", "Product copy", "Packaging direction"] },
+  { title: "Relay", slug: "relay", industry: "Technology / SaaS", category: "Copywriting", service: "Positioning · Launch copy · Web design", text: "A direct, useful launch system that makes workflow software understandable to busy teams.", image: relaySaasImage, challenge: "Relay had capable software but its offer felt technical and difficult to distinguish in a crowded productivity category.", approach: "We clarified the promise, structured the message around real work and designed a bright, practical product story.", details: "The launch combined homepage messaging, pricing copy, email sequences and a lightweight visual system. Product screens appear in context without overstating functionality or inventing performance claims.", services: ["Positioning", "Website copy", "Launch emails", "Landing page design"] },
+  { title: "Ama Botanics", slug: "ama-botanics", industry: "Beauty / Skincare", category: "Branding", service: "Packaging · E-commerce art direction", text: "A botanical skincare system that feels trustworthy, specific and naturally premium.", image: amaBotanicsImage, challenge: "The range needed stronger shelf recognition and clearer product information without making unsupported cosmetic promises.", approach: "We combined ingredient-led storytelling, botanical illustration and a disciplined packaging hierarchy.", details: "Each carton and bottle clearly separates product, ingredient and usage information. Ecommerce art direction carries the tactile, botanical world into focused product pages and educational content.", services: ["Brand identity", "Packaging design", "Product copy", "Art direction"] },
+  { title: "Nneka Okafor Advisory", slug: "nneka-okafor", industry: "Personal Brand", category: "Web Design", service: "Personal brand · Website · Content system", text: "A poised personal brand for a strategist helping ambitious organisations make clearer decisions.", image: nnekaAdvisoryImage, challenge: "The founder’s expertise needed a distinctive platform that felt authoritative, human and consistent across speaking and social content.", approach: "We shaped a concise positioning story and an editorial identity built around clarity, perspective and direct communication.", details: "The system includes a responsive advisory website, keynote templates, LinkedIn content and stationery. Every format supports the same measured, confident voice.", services: ["Brand strategy", "Website design", "Content templates", "Presentation design"] },
+  { title: "Stonebridge Partners", slug: "stonebridge-partners", industry: "Corporate / Infrastructure", category: "Copywriting", service: "Corporate rebrand · Reports · Website", text: "A confident communications system for an infrastructure consultancy working across complex sectors.", image: stonebridgeImage, challenge: "Stonebridge needed to explain specialist expertise to varied audiences without relying on dense, technical language.", approach: "We organised the offer around outcomes, introduced a modular identity and created a clearer hierarchy for long-form information.", details: "The rebrand spans proposals, annual reports, signage, stationery and a responsive corporate site. Direct writing and repeatable page structures make complex work easier to navigate.", services: ["Messaging strategy", "Corporate identity", "Report design", "Website copy"] },
+  { title: "After Hours Lagos", slug: "after-hours-lagos", industry: "Creative / Entertainment", category: "AI Animation", service: "Campaign identity · Motion direction", text: "A high-energy visual campaign built to move consistently from city posters to social video.", image: afterHoursImage, challenge: "The live music series needed a recognisable campaign that could announce changing line-ups across print, social and venue screens.", approach: "We built a bold typographic system with a limited colour palette, then translated its rhythm into short animated sequences.", details: "Poster layouts, story frames, tickets and stage graphics work as one flexible campaign. Motion uses punchy type transitions and documentary venue footage rather than synthetic spectacle.", services: ["Campaign identity", "Social design", "Motion direction", "Event collateral"] },
+  { title: "FixRight Services", slug: "fixright-services", industry: "Local Home Services", category: "Web Design", service: "Local brand · Booking website", text: "A practical identity and booking experience that helps a local repair team feel dependable from first call to invoice.", image: fixRightImage, challenge: "The business needed to look established, explain a broad service range quickly and make appointment requests easier on mobile.", approach: "We created a highly visible identity, straightforward service language and a short mobile-first booking path.", details: "Vehicle graphics, uniforms, invoices, leaflets and the website use the same clear information hierarchy. The result is approachable and useful across neighbourhood marketing and day-to-day service.", services: ["Visual identity", "Website design", "Service copy", "Print collateral"] },
 ];
 
 const faqs = [
@@ -60,6 +89,7 @@ const faqs = [
 function AgencyPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [filter, setFilter] = useState("All");
+  const [activeProject, setActiveProject] = useState<PortfolioProject | null>(null);
   const [testimonial, setTestimonial] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
 
@@ -70,6 +100,19 @@ function AgencyPage() {
   }, []);
 
   const filtered = filter === "All" ? portfolio : portfolio.filter((item) => item.category === filter);
+  const openProject = (project: PortfolioProject) => {
+    setActiveProject(project);
+    document.body.style.overflow = "hidden";
+  };
+  const closeProject = () => {
+    setActiveProject(null);
+    document.body.style.overflow = "";
+  };
+  const showNextProject = () => {
+    if (!activeProject) return;
+    const currentIndex = portfolio.findIndex((project) => project.slug === activeProject.slug);
+    setActiveProject(portfolio[(currentIndex + 1) % portfolio.length] ?? portfolio[0] ?? null);
+  };
   const testimonials = [
     { quote: "Add a short client quote here that speaks to the quality of the collaboration and final work.", name: "Client name", role: "Company / role" },
     { quote: "Replace this with feedback about the clarity of the process, attention to detail and communication.", name: "Client name", role: "Company / role" },
@@ -161,12 +204,30 @@ function AgencyPage() {
         </div>
       </section>
 
-      <section id="portfolio" className="section-pad bg-ink text-primary-foreground">
-        <div className="site-container"><div className="reveal flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><p className="eyebrow">Selected work</p><h2 className="section-title mt-4">A glimpse of what we create.</h2></div><p className="max-w-sm text-primary-foreground/55">Sample project presentations—ready to be replaced with your live case studies.</p></div>
-          <div className="mt-10 flex gap-2 overflow-x-auto pb-3" role="group" aria-label="Filter portfolio">{["All","Branding","Web Design","Copywriting","E-commerce","AI Animation"].map((category) => <button key={category} type="button" onClick={() => setFilter(category)} className={`shrink-0 rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${filter === category ? "border-primary bg-primary text-primary-foreground" : "border-primary-foreground/20 text-primary-foreground hover:border-primary"}`}>{category}</button>)}</div>
-          <div className="mt-6 grid gap-6 md:grid-cols-2">{filtered.map((project, index) => <article key={project.title} className={`group reveal overflow-hidden ${index === 0 && filtered.length > 2 ? "md:col-span-2" : ""}`}><div className={`${index === 0 && filtered.length > 2 ? "aspect-[16/7]" : "aspect-[4/3]"} overflow-hidden rounded-md`}><img src={project.image} alt={`${project.title} ${project.category} sample project`} width={index === 0 ? 1600 : 1200} height={index === 0 ? 1200 : 912} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.025]" /></div><div className="mt-5 flex items-start justify-between gap-5"><div><p className="text-xs font-bold uppercase tracking-[.14em] text-primary">{project.category}</p><h3 className="mt-2 text-2xl font-bold">{project.title}</h3><p className="mt-2 text-sm text-primary-foreground/55">{project.text}</p></div><ArrowUpRight className="shrink-0 text-primary" /></div></article>)}</div>
+      <section id="portfolio" className="portfolio-editorial section-pad bg-background">
+        <div className="site-container">
+          <div className="reveal border-b border-border pb-10 lg:flex lg:items-end lg:justify-between lg:gap-12">
+            <div className="max-w-3xl"><p className="eyebrow">Portfolio</p><h2 className="mt-4 text-5xl leading-[1.02] text-foreground md:text-7xl">Professional solutions for different kinds of business.</h2></div>
+            <p className="mt-6 max-w-sm leading-7 text-muted-foreground lg:mt-0">A collection of focused brand, website, commerce, copy and motion projects—each shaped around a different audience and purpose.</p>
+          </div>
+          <div className="mt-8 flex gap-2 overflow-x-auto pb-3" role="group" aria-label="Filter portfolio">
+            {["All","Branding","Web Design","Copywriting","E-commerce","AI Animation"].map((category) => <Button key={category} type="button" variant={filter === category ? "dark" : "outline"} onClick={() => setFilter(category)} aria-pressed={filter === category} className="min-h-0 shrink-0 rounded-full px-5 py-2 text-sm font-semibold">{category}</Button>)}
+          </div>
+          <div className="mt-10 grid gap-x-8 gap-y-14 md:grid-cols-2">
+            {filtered.map((project) => <article key={project.slug} className="group reveal">
+              <a href={`#case-study-${project.slug}`} onClick={(event) => { event.preventDefault(); openProject(project); }} className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4" aria-label={`View ${project.title} case study`}>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-surface">
+                  <img src={project.image} alt={`${project.title} — ${project.service} presentation`} width={1408} height={1056} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.035]" />
+                  <div className="absolute inset-0 flex items-end bg-ink/0 p-5 transition-colors duration-300 group-hover:bg-ink/35"><span className="translate-y-3 bg-background px-4 py-2 text-sm font-semibold text-foreground opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">View Project <ArrowUpRight className="ml-2 inline transition-transform group-hover:translate-x-1" size={16} /></span></div>
+                </div>
+                <div className="mt-6"><div className="flex flex-wrap items-center gap-3 text-xs"><span className="font-bold uppercase text-primary">{project.industry}</span><span className="h-1 w-1 rounded-full bg-border" /><span className="text-muted-foreground">{project.service}</span></div><div className="mt-3 flex items-start justify-between gap-5"><div><h3 className="text-3xl leading-tight text-foreground">{project.title}</h3><p className="mt-3 max-w-xl leading-7 text-muted-foreground">{project.text}</p></div><ArrowUpRight className="mt-1 shrink-0 text-primary transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></div></div>
+              </a>
+            </article>)}
+          </div>
         </div>
       </section>
+
+      {activeProject && <CaseStudyModal project={activeProject} onClose={closeProject} onNext={showNextProject} />}
 
       <section className="section-pad">
         <div className="site-container grid gap-10 lg:grid-cols-[.6fr_1.4fr]"><div className="reveal"><p className="eyebrow">Client perspective</p><h2 className="section-title mt-4">Good work builds trust.</h2></div><div className="reveal border-l-4 border-primary pl-6 md:pl-10"><Quote className="text-primary" size={38} /><blockquote className="mt-6 max-w-3xl font-display text-2xl font-semibold leading-relaxed md:text-4xl">“{activeTestimonial.quote}”</blockquote><div className="mt-8 flex items-end justify-between gap-5"><div><p className="font-bold">{activeTestimonial.name}</p><p className="text-sm text-muted-foreground">{activeTestimonial.role} · Placeholder</p></div><div className="flex gap-2"><button type="button" aria-label="Previous testimonial" onClick={() => setTestimonial((testimonial + testimonials.length - 1) % testimonials.length)} className="grid h-11 w-11 place-items-center rounded-full border border-border hover:border-primary"><ChevronLeft /></button><button type="button" aria-label="Next testimonial" onClick={() => setTestimonial((testimonial + 1) % testimonials.length)} className="grid h-11 w-11 place-items-center rounded-full bg-ink text-primary-foreground hover:bg-primary"><ChevronRight /></button></div></div></div></div>
@@ -193,4 +254,26 @@ function Field({ label, ...props }: { label: string; name: string; placeholder: 
 
 function FooterLinks({ title, items }: { title: string; items: string[][] }) {
   return <div><h3 className="font-bold">{title}</h3><ul className="mt-5 space-y-3 text-sm text-primary-foreground/60">{items.map(([label, href]) => <li key={label}><a href={href} className="hover:text-primary">{label}</a></li>)}</ul></div>;
+}
+
+function CaseStudyModal({ project, onClose, onNext }: { project: PortfolioProject; onClose: () => void; onNext: () => void }) {
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => event.key === "Escape" && onClose();
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
+  return <div className="fixed inset-0 z-[70] bg-ink/70 p-0 backdrop-blur-sm md:p-6" role="dialog" aria-modal="true" aria-labelledby="case-study-title" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
+    <article className="case-study-scroll relative mx-auto h-full max-w-6xl overflow-y-auto bg-background shadow-2xl">
+      <div className="sticky top-0 z-20 flex items-center justify-between border-b border-border bg-background/95 px-5 py-4 backdrop-blur md:px-8"><span className="text-xs font-bold uppercase text-muted-foreground">Adeleke Hub Agency / Case Study</span><Button type="button" variant="outline" onClick={onClose} aria-label="Close case study" className="h-10 min-h-0 w-10 rounded-full p-0"><X size={18} /></Button></div>
+      <div className="portfolio-editorial">
+        <header className="grid gap-8 px-5 py-12 md:grid-cols-[1.2fr_.8fr] md:px-10 md:py-16"><div><p className="eyebrow">{project.industry}</p><h2 id="case-study-title" className="mt-4 text-6xl leading-none text-foreground md:text-8xl">{project.title}</h2></div><div className="self-end"><p className="text-sm font-semibold text-foreground">{project.service}</p><p className="mt-4 leading-7 text-muted-foreground">{project.text}</p></div></header>
+        <img src={project.image} alt={`${project.title} complete project presentation`} width={1408} height={1056} className="aspect-[4/3] w-full object-cover" />
+        <div className="grid gap-10 px-5 py-14 md:grid-cols-3 md:px-10 md:py-20"><section><p className="eyebrow">Project Overview</p><p className="mt-5 leading-7 text-muted-foreground">{project.text}</p></section><section><p className="eyebrow">Challenge</p><p className="mt-5 leading-7 text-muted-foreground">{project.challenge}</p></section><section><p className="eyebrow">Our Approach</p><p className="mt-5 leading-7 text-muted-foreground">{project.approach}</p></section></div>
+        <section className="bg-surface px-5 py-14 md:px-10 md:py-20"><div className="flex flex-col justify-between gap-7 md:flex-row md:items-end"><div><p className="eyebrow">Project Preview</p><h3 className="mt-4 text-5xl text-foreground">One system, considered in detail.</h3></div><div className="flex flex-wrap gap-2">{project.services.map((service) => <span key={service} className="rounded-full border border-border bg-background px-4 py-2 text-xs font-semibold">{service}</span>)}</div></div><div className="mt-10 grid gap-4 md:grid-cols-2"><img src={project.image} alt={`${project.title} website and identity overview`} width={1408} height={1056} loading="lazy" className="aspect-[4/3] h-full w-full rounded-md object-cover object-left" /><div className="grid grid-cols-2 gap-4"><img src={project.image} alt={`${project.title} digital detail`} width={1408} height={1056} loading="lazy" className="h-full min-h-0 w-full rounded-md object-cover object-center" /><img src={project.image} alt={`${project.title} brand application detail`} width={1408} height={1056} loading="lazy" className="h-full min-h-0 w-full rounded-md object-cover object-right" /></div></div></section>
+        <section className="grid gap-8 px-5 py-14 md:grid-cols-[.65fr_1.35fr] md:px-10 md:py-20"><div><p className="eyebrow">Project Details</p><h3 className="mt-4 text-4xl text-foreground">Designed as a complete business experience.</h3></div><p className="max-w-2xl text-lg leading-8 text-muted-foreground">{project.details}</p></section>
+        <footer className="border-t border-border px-5 py-10 md:px-10"><div className="flex flex-col justify-between gap-5 sm:flex-row"><Button type="button" variant="outline" onClick={onNext}><span>Next Project</span><ArrowRight size={17} /></Button><Button asChild><a href="#contact" onClick={onClose}>Start a Similar Project <ArrowUpRight size={17} /></a></Button></div></footer>
+      </div>
+    </article>
+  </div>;
 }

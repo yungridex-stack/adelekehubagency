@@ -5,6 +5,8 @@
 @theme inline {
   --font-sans: "DM Sans", sans-serif;
   --font-display: "Manrope", sans-serif;
+  --font-editorial: "Instrument Serif", serif;
+  --font-portfolio: "Work Sans", sans-serif;
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 2px);
@@ -75,5 +77,8 @@
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .65s ease; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 .hero-visual { animation: hero-drift 7s ease-in-out infinite; }
+.portfolio-editorial { font-family: var(--font-portfolio); }
+.portfolio-editorial h2, .portfolio-editorial h3 { font-family: var(--font-editorial); font-weight: 400; }
+.case-study-scroll { scrollbar-width: thin; scrollbar-color: var(--color-primary) var(--color-surface); }
 @keyframes hero-drift { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
