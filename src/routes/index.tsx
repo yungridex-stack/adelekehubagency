@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  ArrowLeft, ArrowRight, ArrowUpRight, Bot, BriefcaseBusiness, Check, ChevronDown,
+  ArrowRight, ArrowUpRight, Bot, Check, ChevronDown,
   ChevronLeft, ChevronRight, Code2, Instagram, Linkedin, Mail, Menu, MessageCircle,
   Palette, PenTool, Phone, Quote, ShoppingBag, Sparkles, X,
 } from "lucide-react";
@@ -8,9 +8,6 @@ import { useEffect, useState, type FormEvent } from "react";
 import { Button } from "../components/button";
 import logoAsset from "../assets/adeleke-logo-v2.png.asset.json";
 import heroImage from "../assets/agency-hero.jpg";
-import brandingImage from "../assets/work-branding.jpg";
-import ecommerceImage from "../assets/work-ecommerce.jpg";
-import animationImage from "../assets/work-animation.jpg";
 import atelierNineImage from "../assets/portfolio/atelier-nine.jpg";
 import oriTableImage from "../assets/portfolio/ori-table.jpg";
 import havenRealtyImage from "../assets/portfolio/haven-realty.jpg";
@@ -97,7 +94,7 @@ function AgencyPage() {
     const observer = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible")), { threshold: 0.12 });
     document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
     return () => observer.disconnect();
-  }, []);
+  }, [filter]);
 
   const filtered = filter === "All" ? portfolio : portfolio.filter((item) => item.category === filter);
   const openProject = (project: PortfolioProject) => {
@@ -220,7 +217,7 @@ function AgencyPage() {
                   <img src={project.image} alt={`${project.title} — ${project.service} presentation`} width={1408} height={1056} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.035]" />
                   <div className="absolute inset-0 flex items-end bg-ink/0 p-5 transition-colors duration-300 group-hover:bg-ink/35"><span className="translate-y-3 bg-background px-4 py-2 text-sm font-semibold text-foreground opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">View Project <ArrowUpRight className="ml-2 inline transition-transform group-hover:translate-x-1" size={16} /></span></div>
                 </div>
-                <div className="mt-6"><div className="flex flex-wrap items-center gap-3 text-xs"><span className="font-bold uppercase text-primary">{project.industry}</span><span className="h-1 w-1 rounded-full bg-border" /><span className="text-muted-foreground">{project.service}</span></div><div className="mt-3 flex items-start justify-between gap-5"><div><h3 className="text-3xl leading-tight text-foreground">{project.title}</h3><p className="mt-3 max-w-xl leading-7 text-muted-foreground">{project.text}</p></div><ArrowUpRight className="mt-1 shrink-0 text-primary transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></div></div>
+                <div className="mt-6"><div className="flex flex-wrap items-center gap-3 text-xs"><span className="font-bold uppercase text-primary">{project.industry}</span><span className="h-1 w-1 rounded-full bg-border" /><span className="text-muted-foreground">{project.service}</span></div><div className="mt-3 flex items-start justify-between gap-5"><div><h3 className="text-3xl leading-tight text-foreground">{project.title}</h3><p className="mt-3 max-w-xl leading-7 text-muted-foreground">{project.text}</p><span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-foreground">View Project <ArrowUpRight className="text-primary transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" size={16} /></span></div></div></div>
               </a>
             </article>)}
           </div>
