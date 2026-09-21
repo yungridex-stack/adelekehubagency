@@ -80,5 +80,7 @@
 .portfolio-editorial { font-family: var(--font-portfolio); }
 .portfolio-editorial h2, .portfolio-editorial h3 { font-family: var(--font-editorial); font-weight: 400; }
 .case-study-scroll { scrollbar-width: thin; scrollbar-color: var(--color-primary) var(--color-surface); }
+.testimonial-scroll { scrollbar-width: none; }
+.testimonial-scroll::-webkit-scrollbar { display: none; }
 @keyframes hero-drift { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
