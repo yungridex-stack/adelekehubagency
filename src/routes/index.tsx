@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  ArrowRight, ArrowUpRight, Bot, Check, ChevronDown,
+  ArrowRight, ArrowUpRight, BadgeCheck, Bot, Check, ChevronDown,
   ChevronLeft, ChevronRight, Code2, Instagram, Linkedin, Mail, Menu, MessageCircle,
-  Palette, PenTool, Phone, Quote, ShoppingBag, Sparkles, X,
+  MapPin, Palette, PenTool, Phone, Quote, ShoppingBag, Sparkles, Star, X,
 } from "lucide-react";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "../components/button";
 import logoAsset from "../assets/adeleke-logo-v2.png.asset.json";
 import heroImage from "../assets/agency-hero.jpg";
@@ -83,18 +83,56 @@ const faqs = [
   ["How do I start a project?", "Send us your goals through the contact form or WhatsApp. We will review your brief and arrange the next step."],
 ];
 
+const testimonials = [
+  { initials: "DO", name: "Daniel Okafor", role: "Founder", business: "Noura Lifestyle", industry: "Fashion & Lifestyle", service: "Branding Design", location: "Lagos, Nigeria", rating: 5, verified: true, quote: "Adeleke Hub Agency gave our brand a much more professional identity. The new colors, visual direction and overall branding made everything feel more consistent and premium." },
+  { initials: "SW", name: "Sarah Williams", role: "Business Owner", business: "Bloom & Beauty", industry: "Beauty & Skincare", service: "Website Design & Development", location: "London, UK", rating: 5, verified: true, quote: "The website came out clean, professional and easy to navigate. I especially liked how the design presented our services clearly on both desktop and mobile." },
+  { initials: "MC", name: "Michael Carter", role: "Founder", business: "GrowthPilot", industry: "Digital Services", service: "Copywriting", location: "Toronto, Canada", rating: 5, verified: true, quote: "The copy made our offer much easier to understand. The messaging became clearer, more persuasive and much more focused on what our customers actually need." },
+  { initials: "AJ", name: "Amanda Johnson", role: "E-commerce Manager", business: "UrbanNest Store", industry: "E-commerce & Home Decor", service: "E-commerce Marketing", location: "Atlanta, USA", rating: 5, verified: true, quote: "Adeleke Hub Agency helped us look at our online store from a customer’s perspective. The recommendations gave us a much clearer direction for presenting our products and marketing them online." },
+  { initials: "JA", name: "James Anderson", role: "Creative Director", business: "Nova Drinks", industry: "Food & Beverage", service: "AI Animation", location: "Manchester, UK", rating: 5, verified: true, quote: "The animation concept brought our product idea to life in a really engaging way. The visual storytelling gave us something much more interesting to use for our promotional content." },
+  { initials: "GM", name: "Grace Mensah", role: "Founder", business: "Elevate Consulting", industry: "Business Consulting", service: "Branding + Website Design", location: "Accra, Ghana", rating: 5, verified: true, quote: "The combination of the new branding and website made our business look much more established. Everything feels more professional and consistent now." },
+];
+
 function AgencyPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [filter, setFilter] = useState("All");
   const [activeProject, setActiveProject] = useState<PortfolioProject | null>(null);
-  const [testimonial, setTestimonial] = useState(0);
+  const [testimonialPage, setTestimonialPage] = useState(0);
+  const [testimonialsPerPage, setTestimonialsPerPage] = useState(1);
+  const [testimonialsPaused, setTestimonialsPaused] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
+  const testimonialTrackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible")), { threshold: 0.12 });
     document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
     return () => observer.disconnect();
   }, [filter]);
+
+  useEffect(() => {
+    const updateTestimonialsPerPage = () => {
+      const nextValue = window.innerWidth >= 1280 ? 3 : window.innerWidth >= 640 ? 2 : 1;
+      setTestimonialsPerPage(nextValue);
+      setTestimonialPage(0);
+      testimonialTrackRef.current?.scrollTo({ left: 0, behavior: "smooth" });
+    };
+    updateTestimonialsPerPage();
+    window.addEventListener("resize", updateTestimonialsPerPage);
+    return () => window.removeEventListener("resize", updateTestimonialsPerPage);
+  }, []);
+
+  const testimonialPageCount = Math.ceil(testimonials.length / testimonialsPerPage);
+  const showTestimonialPage = (page: number) => {
+    const nextPage = (page + testimonialPageCount) % testimonialPageCount;
+    setTestimonialPage(nextPage);
+    const firstCard = testimonialTrackRef.current?.children.item(nextPage * testimonialsPerPage) as HTMLElement | null;
+    testimonialTrackRef.current?.scrollTo({ left: firstCard?.offsetLeft ?? 0, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    if (testimonialsPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => showTestimonialPage(testimonialPage + 1), 6500);
+    return () => window.clearInterval(timer);
+  }, [testimonialPage, testimonialPageCount, testimonialsPaused]);
 
   const filtered = filter === "All" ? portfolio : portfolio.filter((item) => item.category === filter);
   const openProject = (project: PortfolioProject) => {
@@ -110,13 +148,6 @@ function AgencyPage() {
     const currentIndex = portfolio.findIndex((project) => project.slug === activeProject.slug);
     setActiveProject(portfolio[(currentIndex + 1) % portfolio.length] ?? portfolio[0] ?? null);
   };
-  const testimonials = [
-    { quote: "Add a short client quote here that speaks to the quality of the collaboration and final work.", name: "Client name", role: "Company / role" },
-    { quote: "Replace this with feedback about the clarity of the process, attention to detail and communication.", name: "Client name", role: "Company / role" },
-    { quote: "Use this space for a genuine client story about the experience and the value of the finished project.", name: "Client name", role: "Company / role" },
-  ];
-  const activeTestimonial = testimonials[testimonial] ?? { quote: "", name: "", role: "" };
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
@@ -226,8 +257,46 @@ function AgencyPage() {
 
       {activeProject && <CaseStudyModal project={activeProject} onClose={closeProject} onNext={showNextProject} />}
 
-      <section className="section-pad">
-        <div className="site-container grid gap-10 lg:grid-cols-[.6fr_1.4fr]"><div className="reveal"><p className="eyebrow">Client perspective</p><h2 className="section-title mt-4">Good work builds trust.</h2></div><div className="reveal border-l-4 border-primary pl-6 md:pl-10"><Quote className="text-primary" size={38} /><blockquote className="mt-6 max-w-3xl font-display text-2xl font-semibold leading-relaxed md:text-4xl">“{activeTestimonial.quote}”</blockquote><div className="mt-8 flex items-end justify-between gap-5"><div><p className="font-bold">{activeTestimonial.name}</p><p className="text-sm text-muted-foreground">{activeTestimonial.role} · Placeholder</p></div><div className="flex gap-2"><button type="button" aria-label="Previous testimonial" onClick={() => setTestimonial((testimonial + testimonials.length - 1) % testimonials.length)} className="grid h-11 w-11 place-items-center rounded-full border border-border hover:border-primary"><ChevronLeft /></button><button type="button" aria-label="Next testimonial" onClick={() => setTestimonial((testimonial + 1) % testimonials.length)} className="grid h-11 w-11 place-items-center rounded-full bg-ink text-primary-foreground hover:bg-primary"><ChevronRight /></button></div></div></div></div>
+      <section className="section-pad bg-surface" aria-labelledby="testimonials-title">
+        <div
+          className="site-container"
+          onMouseEnter={() => setTestimonialsPaused(true)}
+          onMouseLeave={() => setTestimonialsPaused(false)}
+          onTouchStart={() => setTestimonialsPaused(true)}
+          onTouchEnd={() => setTestimonialsPaused(false)}
+          onFocusCapture={() => setTestimonialsPaused(true)}
+          onBlurCapture={(event) => !event.currentTarget.contains(event.relatedTarget) && setTestimonialsPaused(false)}
+        >
+          <div className="reveal flex flex-col justify-between gap-7 border-b border-border pb-9 md:flex-row md:items-end">
+            <div><p className="eyebrow">Client testimonials</p><h2 id="testimonials-title" className="section-title mt-4">What Our Clients Say</h2><p className="mt-4 text-lg text-muted-foreground">Real experiences from businesses we&apos;ve worked with.</p></div>
+            <div className="flex gap-2">
+              <Button type="button" variant="outline" aria-label="Previous testimonials" onClick={() => showTestimonialPage(testimonialPage - 1)} className="h-11 min-h-0 w-11 rounded-full p-0"><ChevronLeft size={19} /></Button>
+              <Button type="button" variant="dark" aria-label="Next testimonials" onClick={() => showTestimonialPage(testimonialPage + 1)} className="h-11 min-h-0 w-11 rounded-full p-0"><ChevronRight size={19} /></Button>
+            </div>
+          </div>
+
+          <div ref={testimonialTrackRef} className="testimonial-scroll mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-5" aria-live="polite" aria-label="Client testimonials carousel">
+            {testimonials.map((item, index) => <article key={item.name} className={`relative flex min-w-full snap-start flex-col overflow-hidden rounded-md border bg-card p-6 shadow-sm sm:min-w-[calc(50%-0.75rem)] xl:min-w-[calc(33.333%-1rem)] ${index % 3 === 0 ? "border-t-4 border-t-primary" : index % 3 === 1 ? "border-l-4 border-l-primary" : "border-border"}`}>
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div role="img" aria-label={`${item.name} profile placeholder`} className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-ink font-display text-sm font-extrabold text-primary-foreground ring-2 ring-primary/20">{item.initials}</div>
+                  <div><h3 className="font-display text-base font-extrabold">{item.name}</h3><p className="text-sm text-muted-foreground">{item.role}, {item.business}</p></div>
+                </div>
+                <Quote className="shrink-0 text-primary/25" size={30} aria-hidden="true" />
+              </div>
+              <div className="mt-6 flex items-center gap-1" aria-label={`${item.rating} out of 5 stars`}>{Array.from({ length: item.rating }).map((_, star) => <Star key={star} className="fill-primary text-primary" size={16} aria-hidden="true" />)}</div>
+              <blockquote className="mt-5 flex-1 text-base leading-7 text-foreground">“{item.quote}”</blockquote>
+              <div className="mt-7 border-t border-border pt-5">
+                <div className="flex flex-wrap gap-2"><span className="rounded-full bg-accent px-3 py-1 text-xs font-bold text-accent-foreground">{item.service}</span>{item.verified && <span className="inline-flex items-center gap-1 rounded-full bg-surface px-3 py-1 text-xs font-semibold text-foreground"><BadgeCheck className="text-primary" size={14} /> Verified client</span>}</div>
+                <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground"><span>{item.industry}</span><span className="inline-flex items-center gap-1"><MapPin size={13} />{item.location}</span></div>
+              </div>
+            </article>)}
+          </div>
+
+          <div className="mt-3 flex justify-center gap-2" aria-label="Choose testimonial page">
+            {Array.from({ length: testimonialPageCount }).map((_, page) => <Button key={page} type="button" variant="outline" aria-label={`Show testimonial page ${page + 1}`} aria-current={testimonialPage === page ? "true" : undefined} onClick={() => showTestimonialPage(page)} className={`h-2.5 min-h-0 w-2.5 rounded-full border-0 p-0 transition-all ${testimonialPage === page ? "w-8 bg-primary" : "bg-border"}`} />)}
+          </div>
+        </div>
       </section>
 
       <section id="faq" className="section-pad bg-surface"><div className="site-container grid gap-12 lg:grid-cols-[.7fr_1.3fr]"><div className="reveal"><p className="eyebrow">Frequently asked</p><h2 className="section-title mt-4">A few things you may want to know.</h2><Button asChild variant="outline" className="mt-7"><a href={whatsappUrl} target="_blank" rel="noreferrer">Ask us on WhatsApp</a></Button></div><div className="reveal">{faqs.map(([question, answer], index) => <div key={question} className="border-b border-border"><button type="button" className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-5 py-6 text-left font-bold" aria-expanded={openFaq === index} onClick={() => setOpenFaq(openFaq === index ? -1 : index)}><span>{question}</span><ChevronDown className={`shrink-0 text-primary transition-transform ${openFaq === index ? "rotate-180" : ""}`} /></button><div className={`grid transition-[grid-template-rows] duration-300 ${openFaq === index ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}><div className="overflow-hidden"><p className="max-w-2xl pb-6 leading-7 text-muted-foreground">{answer}</p></div></div></div>)}</div></div></section>
