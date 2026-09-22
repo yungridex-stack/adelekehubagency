@@ -294,7 +294,7 @@ function AgencyPage() {
           </div>
 
           <div className="mt-3 flex justify-center gap-2" aria-label="Choose testimonial page">
-            {Array.from({ length: testimonialPageCount }).map((_, page) => <Button key={page} type="button" variant="outline" aria-label={`Show testimonial page ${page + 1}`} aria-current={testimonialPage === page ? "true" : undefined} onClick={() => showTestimonialPage(page)} className={`h-2.5 min-h-0 w-2.5 rounded-full border-0 p-0 transition-all ${testimonialPage === page ? "w-8 bg-primary" : "bg-border"}`} />)}
+            {Array.from({ length: testimonialPageCount }).map((_, page) => <Button key={page} type="button" variant="outline" aria-label={`Show testimonial page ${page + 1}`} aria-current={testimonialPage === page ? "true" : undefined} onClick={() => showTestimonialPage(page)} className={`h-2.5 min-h-0 w-2.5 rounded-full border-0 p-0 transition-all ${testimonialPage === page ? "w-8 bg-primary" : "bg-border"}`}><span className="sr-only">Page {page + 1}</span></Button>)}
           </div>
         </div>
       </section>
