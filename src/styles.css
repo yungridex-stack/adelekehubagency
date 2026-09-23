@@ -7,6 +7,8 @@
   --font-display: "Manrope", sans-serif;
   --font-editorial: "Instrument Serif", serif;
   --font-portfolio: "Work Sans", sans-serif;
+  --font-home-display: "Sora", sans-serif;
+  --font-home-body: "Manrope", sans-serif;
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 2px);
@@ -82,5 +84,14 @@
 .case-study-scroll { scrollbar-width: thin; scrollbar-color: var(--color-primary) var(--color-surface); }
 .testimonial-scroll { scrollbar-width: none; }
 .testimonial-scroll::-webkit-scrollbar { display: none; }
+@utility home-display { font-family: var(--font-home-display); letter-spacing: 0; }
+@utility home-body { font-family: var(--font-home-body); letter-spacing: 0; }
+.home-hero-copy { animation: home-copy-in .6s ease-out both; }
+.home-hero-visual { animation: home-visual-in .7s .08s ease-out both, home-float 8s 1s ease-in-out infinite; }
+.home-card-lift { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+.home-card-lift:hover { transform: translateY(-5px); box-shadow: 0 18px 40px color-mix(in oklab, var(--color-ink) 9%, transparent); border-color: color-mix(in oklab, var(--color-primary) 45%, var(--color-border)); }
+@keyframes home-copy-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes home-visual-in { from { opacity: 0; transform: translateY(16px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes home-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 @keyframes hero-drift { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
