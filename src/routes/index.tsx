@@ -179,23 +179,37 @@ function AgencyPage() {
         </div>
       </header>
 
-      <section className="site-container grid min-h-[calc(100svh-5rem)] items-center gap-12 py-12 lg:grid-cols-[1.02fr_.98fr] lg:py-16">
-        <div className="reveal is-visible">
-          <p className="eyebrow mb-6">Independent digital creative agency</p>
-          <h1 className="display-title max-w-3xl">Creative Solutions That <span className="text-primary">Drive Results.</span></h1>
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground">We build powerful brands, persuasive content, professional websites, engaging AI animations and e-commerce strategies that help businesses attract attention and grow.</p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Button asChild><a href="#contact">Start Your Project <ArrowRight size={18} /></a></Button>
-            <Button asChild variant="outline"><a href="#services">Explore Services</a></Button>
+      <section className="home-body overflow-hidden border-b border-border bg-background">
+        <div className="site-container grid min-h-[calc(100svh-8rem)] items-center gap-12 py-12 lg:grid-cols-[.92fr_1.08fr] lg:gap-16 lg:py-14">
+          <div className="home-hero-copy relative z-10">
+            <div className="mb-7 flex items-center gap-3"><span className="h-px w-10 bg-primary" /><p className="text-xs font-extrabold uppercase text-primary">Independent digital creative agency</p></div>
+            <h1 className="home-display max-w-3xl text-[clamp(2.65rem,5.2vw,5.2rem)] font-bold leading-[1.02] text-foreground">We Build Digital Experiences That Help Businesses <span className="text-primary">Grow.</span></h1>
+            <p className="mt-7 max-w-xl text-base leading-7 text-muted-foreground md:text-lg md:leading-8">We create memorable brands, compelling content, professional websites, engaging AI animations and e-commerce solutions that help businesses attract attention and grow.</p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Button asChild className="group"><a href="#contact">Start Your Project <ArrowRight className="transition-transform group-hover:translate-x-1" size={18} /></a></Button>
+              <Button asChild variant="outline" className="group"><a href="#services">Explore Our Services <ArrowRight className="transition-transform group-hover:translate-x-1" size={18} /></a></Button>
+            </div>
+            <div className="mt-10 grid max-w-xl grid-cols-2 gap-x-7 gap-y-3 border-t border-border pt-5 text-xs font-semibold text-muted-foreground sm:grid-cols-4">
+              <span>Brand systems</span><span>Web experiences</span><span>Digital commerce</span><span>Motion stories</span>
+            </div>
           </div>
-          <div className="mt-12 flex items-center gap-4 border-t border-border pt-6 text-sm text-muted-foreground">
-            <span className="h-2.5 w-2.5 rounded-full bg-success" /> Available for selected projects
+          <div className="home-hero-visual relative mx-auto w-full max-w-3xl pb-5 pr-4 sm:pr-7">
+            <div className="grid grid-cols-[1.35fr_.65fr] gap-3 sm:gap-4">
+              <div className="relative mt-8 overflow-hidden rounded-md border border-border bg-card p-2 shadow-xl sm:p-3">
+                <img src={heroImage} alt="Professional website, branding and digital campaign work" width={1600} height={1200} fetchPriority="high" className="aspect-[4/5] h-full w-full object-cover" />
+                <div className="absolute bottom-5 left-5 bg-background px-4 py-3 shadow-lg"><p className="text-[10px] font-bold uppercase text-primary">Digital experience</p><p className="home-display mt-1 text-sm font-bold">Strategy shaped into craft</p></div>
+              </div>
+              <div className="grid gap-3 sm:gap-4">
+                <img src={atelierNineImage} alt="Fashion e-commerce brand presentation" width={1408} height={1056} className="aspect-[4/5] w-full rounded-md border border-border object-cover shadow-md" />
+                <img src={kinfolkMarketImage} alt="E-commerce product and website presentation" width={1408} height={1056} className="aspect-square w-full rounded-md border border-border object-cover shadow-md" />
+                <div className="relative overflow-hidden rounded-md border border-border bg-ink p-2 shadow-md">
+                  <img src={afterHoursImage} alt="AI animation and entertainment campaign presentation" width={1408} height={1056} className="aspect-[4/3] w-full object-cover opacity-80" />
+                  <span className="absolute bottom-3 left-3 text-[10px] font-bold uppercase text-primary-foreground">Motion + AI</span>
+                </div>
+              </div>
+            </div>
+            <div className="absolute right-0 top-0 bg-primary px-4 py-3 text-xs font-extrabold uppercase text-primary-foreground">Brand · Web · Commerce · Motion</div>
           </div>
-        </div>
-        <div className="hero-visual relative mx-auto w-full max-w-2xl">
-          <div className="absolute -left-3 top-8 z-10 bg-primary px-4 py-3 text-xs font-bold uppercase tracking-[.16em] text-primary-foreground">Strategy × Craft</div>
-          <img src={heroImage} alt="Creative agency workspace with branding, website and animation concepts" width={1600} height={1200} fetchPriority="high" className="aspect-[4/3] w-full rounded-lg object-cover" />
-          <div className="absolute -bottom-5 right-3 max-w-56 rounded-md bg-ink p-4 text-sm font-semibold text-primary-foreground shadow-xl">Ideas shaped into purposeful digital experiences.</div>
         </div>
       </section>
 
@@ -206,29 +220,36 @@ function AgencyPage() {
         </div>
       </section>
 
-      <section id="services" className="section-pad">
+      <section id="services" className="home-body section-pad">
         <div className="site-container">
-          <div className="reveal flex flex-col justify-between gap-5 md:flex-row md:items-end"><div><p className="eyebrow">What we do</p><h2 className="section-title mt-4 max-w-2xl">One creative partner. Five ways to grow.</h2></div><p className="max-w-sm text-muted-foreground">Focused expertise for every touchpoint where your business needs to look, sound and perform better.</p></div>
-          <div className="mt-14 grid border-l border-t border-border md:grid-cols-2 lg:grid-cols-3">
-            {services.map(({ icon: Icon, title, text, number }) => <article key={title} className="group reveal min-h-72 border-b border-r border-border bg-card p-7 transition-colors duration-300 hover:bg-ink hover:text-primary-foreground">
-              <div className="flex items-center justify-between"><Icon className="text-primary" size={28} strokeWidth={1.7} /><span className="text-xs font-bold text-muted-foreground">{number}</span></div>
-              <h3 className="mt-14 text-xl font-bold">{title}</h3><p className="mt-3 leading-7 text-muted-foreground group-hover:text-primary-foreground/65">{text}</p>
-              <a href="#contact" className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-primary">Start a project <ArrowUpRight size={16} /></a>
+          <div className="reveal grid gap-6 border-b border-border pb-10 lg:grid-cols-[1fr_.55fr] lg:items-end"><div><p className="eyebrow">Services preview</p><h2 className="home-display mt-4 max-w-3xl text-4xl font-bold leading-tight md:text-6xl">The right creative expertise, working as one.</h2></div><p className="max-w-md leading-7 text-muted-foreground lg:justify-self-end">Focused digital services for every point where your business needs to look sharper, sound clearer and work harder.</p></div>
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-6">
+            {services.map(({ icon: Icon, title, text, number }, index) => <article key={title} className={`home-card-lift group reveal flex min-h-72 flex-col rounded-md border border-border bg-card p-6 ${index < 2 ? "lg:col-span-3" : "lg:col-span-2"}`}>
+              <div className="flex items-center justify-between"><span className="grid h-11 w-11 place-items-center rounded-md bg-accent text-primary"><Icon size={23} strokeWidth={1.7} /></span><span className="home-display text-xs font-bold text-muted-foreground">{number}</span></div>
+              <h3 className="home-display mt-10 text-xl font-bold">{title}</h3><p className="mt-3 leading-7 text-muted-foreground">{text}</p>
+              <a href="#contact" className="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-bold text-foreground transition-colors hover:text-primary">Explore Service <ArrowRight className="text-primary transition-transform group-hover:translate-x-1" size={16} /></a>
             </article>)}
           </div>
         </div>
       </section>
 
-      <section className="section-pad bg-surface">
-        <div className="site-container grid gap-12 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
-          <div className="reveal"><p className="eyebrow">Why Adeleke Hub</p><h2 className="section-title mt-4">Built with intent.<br />Made to perform.</h2><p className="mt-6 max-w-md leading-7 text-muted-foreground">We balance original thinking with commercial clarity—so every decision has a reason and every deliverable has a purpose.</p></div>
-          <div className="grid sm:grid-cols-2">{["Creative & Strategic", "Conversion Focused", "Professional Design", "Responsive Solutions", "Detail Driven", "Modern Technology"].map((item) => <div key={item} className="reveal flex items-center gap-4 border-b border-border py-5 sm:odd:border-r sm:odd:pr-6 sm:even:pl-6"><span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground"><Check size={16} /></span><span className="font-bold">{item}</span></div>)}</div>
+      <section className="home-body section-pad bg-surface">
+        <div className="site-container">
+          <div className="reveal flex flex-col justify-between gap-5 md:flex-row md:items-end"><div><p className="eyebrow">Why Adeleke Hub</p><h2 className="home-display mt-4 text-4xl font-bold md:text-5xl">Creative work with a business point of view.</h2></div><p className="max-w-sm leading-7 text-muted-foreground">Every decision balances originality with clarity, relevance and real commercial goals.</p></div>
+          <div className="mt-12 grid border-l border-t border-border sm:grid-cols-2 lg:grid-cols-4">{[["Strategic","Business focused thinking."],["Creative","Distinctive visual solutions."],["Conversion Focused","Designed around business objectives."],["Modern","Using current digital tools and technology."]].map(([title,text], index) => <article key={title} className="reveal border-b border-r border-border bg-background p-6 lg:min-h-56"><div className="flex items-center justify-between"><span className="home-display text-xs font-bold text-primary">0{index + 1}</span><Check size={17} className="text-primary" /></div><h3 className="home-display mt-12 text-xl font-bold">{title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{text}</p></article>)}</div>
         </div>
       </section>
 
-      <section id="process" className="section-pad">
-        <div className="site-container"><div className="reveal"><p className="eyebrow">Our process</p><h2 className="section-title mt-4">Clear from first thought to final launch.</h2></div>
-          <div className="mt-14 grid gap-4 md:grid-cols-4">{[["01","Discover","We listen, ask the right questions and understand the opportunity."],["02","Strategize","We define a focused direction built around your goals."],["03","Create","We develop the words, visuals and experience with care."],["04","Launch","We refine, deliver and help your new work meet the world."]].map(([number,title,text], index) => <article key={title} className="reveal relative border-t-2 border-ink pt-6"><span className="font-display text-5xl font-extrabold text-primary">{number}</span><h3 className="mt-8 text-xl font-bold">{title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{text}</p>{index < 3 && <ArrowRight className="absolute right-2 top-7 hidden text-border md:block" />}</article>)}</div>
+      <section id="process" className="home-body section-pad">
+        <div className="site-container"><div className="reveal grid gap-6 md:grid-cols-[.65fr_1.35fr] md:items-end"><div><p className="eyebrow">Our process</p><h2 className="home-display mt-4 text-4xl font-bold md:text-5xl">From first conversation to launch.</h2></div><p className="max-w-lg leading-7 text-muted-foreground md:justify-self-end">A clear, collaborative process keeps every project focused and moving forward.</p></div>
+          <div className="relative mt-14 grid gap-5 md:grid-cols-4 before:absolute before:left-0 before:right-0 before:top-5 before:hidden before:h-px before:bg-border md:before:block">{[["01","Discover","We listen, ask the right questions and understand the opportunity."],["02","Strategy","We define a focused direction built around your goals."],["03","Create","We develop the words, visuals and experience with care."],["04","Launch","We refine, deliver and help your new work meet the world."]].map(([number,title,text], index) => <article key={title} className="reveal relative"><div className="relative z-10 flex items-center justify-between"><span className="home-display grid h-10 w-10 place-items-center rounded-full bg-ink text-xs font-bold text-primary-foreground">{number}</span>{index < 3 && <ArrowRight className="mr-2 hidden text-primary md:block" size={18} />}</div><h3 className="home-display mt-7 text-xl font-bold">{title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{text}</p></article>)}</div>
+        </div>
+      </section>
+
+      <section className="home-body section-pad bg-ink text-primary-foreground" aria-labelledby="featured-work-title">
+        <div className="site-container">
+          <div className="reveal flex flex-col justify-between gap-7 border-b border-primary-foreground/15 pb-9 md:flex-row md:items-end"><div><p className="eyebrow">Featured work</p><h2 id="featured-work-title" className="home-display mt-4 text-4xl font-bold md:text-6xl">Selected work across industries.</h2></div><a href="#portfolio" className="group inline-flex items-center gap-2 font-bold text-primary">Explore all projects <ArrowRight className="transition-transform group-hover:translate-x-1" size={18} /></a></div>
+          <div className="mt-10 grid gap-7 md:grid-cols-2">{portfolio.slice(0, 4).map((project, index) => <article key={project.slug} className={`group reveal ${index === 0 || index === 3 ? "md:col-span-2" : ""}`}><a href={`#case-study-${project.slug}`} onClick={(event) => { event.preventDefault(); openProject(project); }} className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"><div className={`relative overflow-hidden rounded-md bg-surface ${index === 0 || index === 3 ? "aspect-[16/8]" : "aspect-[4/3]"}`}><img src={project.image} alt={`${project.title} — ${project.service} presentation`} width={1408} height={1056} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.025]" /><div className="absolute inset-0 flex items-end bg-ink/0 p-5 transition-colors group-hover:bg-ink/30"><span className="translate-y-2 bg-background px-4 py-2 text-sm font-bold text-foreground opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">View Project <ArrowUpRight className="ml-2 inline text-primary" size={16} /></span></div></div><div className="mt-5 flex items-start justify-between gap-5"><div><p className="text-xs font-bold uppercase text-primary">{project.industry}</p><h3 className="home-display mt-2 text-2xl font-bold md:text-3xl">{project.title}</h3></div><ArrowUpRight className="mt-1 shrink-0 text-primary transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></div></a></article>)}</div>
         </div>
       </section>
 
@@ -301,7 +322,7 @@ function AgencyPage() {
 
       <section id="faq" className="section-pad bg-surface"><div className="site-container grid gap-12 lg:grid-cols-[.7fr_1.3fr]"><div className="reveal"><p className="eyebrow">Frequently asked</p><h2 className="section-title mt-4">A few things you may want to know.</h2><Button asChild variant="outline" className="mt-7"><a href={whatsappUrl} target="_blank" rel="noreferrer">Ask us on WhatsApp</a></Button></div><div className="reveal">{faqs.map(([question, answer], index) => <div key={question} className="border-b border-border"><button type="button" className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-5 py-6 text-left font-bold" aria-expanded={openFaq === index} onClick={() => setOpenFaq(openFaq === index ? -1 : index)}><span>{question}</span><ChevronDown className={`shrink-0 text-primary transition-transform ${openFaq === index ? "rotate-180" : ""}`} /></button><div className={`grid transition-[grid-template-rows] duration-300 ${openFaq === index ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}><div className="overflow-hidden"><p className="max-w-2xl pb-6 leading-7 text-muted-foreground">{answer}</p></div></div></div>)}</div></div></section>
 
-      <section className="bg-ink py-16 text-primary-foreground"><div className="site-container reveal flex flex-col justify-between gap-8 md:flex-row md:items-center"><div><p className="eyebrow">Your next move</p><h2 className="mt-4 font-display text-3xl font-extrabold md:text-5xl">Ready To Build Something That Works?</h2><p className="mt-4 max-w-2xl text-primary-foreground/60">Let&apos;s turn your idea into a professional digital experience designed to attract, engage and convert.</p></div><Button asChild className="shrink-0"><a href="#contact">Start Your Project <ArrowRight size={18} /></a></Button></div></section>
+      <section className="home-body overflow-hidden bg-ink py-20 text-primary-foreground"><div className="site-container reveal relative"><div className="absolute -right-8 -top-20 hidden font-home-display text-[13rem] font-extrabold leading-none text-primary/10 lg:block" aria-hidden="true">A</div><div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end"><div><p className="eyebrow">Your next move</p><h2 className="home-display mt-4 max-w-4xl text-4xl font-bold leading-tight md:text-6xl">Ready To Build Something That Works?</h2><p className="mt-5 max-w-2xl text-lg leading-8 text-primary-foreground/65">Let&apos;s turn your idea into a professional digital experience built around your goals.</p></div><div className="flex flex-col gap-3 sm:flex-row lg:flex-col"><Button asChild className="group shrink-0"><a href="#contact">Start Your Project <ArrowRight className="transition-transform group-hover:translate-x-1" size={18} /></a></Button><Button asChild variant="outline" className="group shrink-0 border-primary-foreground/30 bg-transparent text-primary-foreground"><a href={whatsappUrl} target="_blank" rel="noreferrer">Chat With Us on WhatsApp <MessageCircle className="transition-transform group-hover:scale-110" size={18} /></a></Button></div></div></div></section>
 
       <section id="contact" className="section-pad"><div className="site-container grid gap-12 lg:grid-cols-[.8fr_1.2fr]"><div className="reveal"><p className="eyebrow">Start a conversation</p><h2 className="section-title mt-4">Tell us what you&apos;re building.</h2><p className="mt-6 max-w-md leading-7 text-muted-foreground">Share a few details and we&apos;ll continue the conversation by email. Prefer a faster response? Reach us on WhatsApp.</p><div className="mt-9 space-y-4"><a href="mailto:adelekehubagency@gmail.com" className="flex items-center gap-3 font-semibold hover:text-primary"><Mail className="text-primary" /> adelekehubagency@gmail.com</a><a href="tel:+2348118250735" className="flex items-center gap-3 font-semibold hover:text-primary"><Phone className="text-primary" /> +234 811 825 0735</a><a href={whatsappUrl} target="_blank" rel="noreferrer" className="flex items-center gap-3 font-semibold hover:text-primary"><MessageCircle className="text-primary" /> 08118250735</a></div></div>
           <form onSubmit={handleSubmit} className="reveal grid gap-5 rounded-lg border border-border bg-card p-6 shadow-sm md:grid-cols-2 md:p-9"><Field label="Name" name="name" placeholder="Your name" required /><Field label="Email" name="email" placeholder="you@company.com" type="email" required /><Field label="Business Name" name="business" placeholder="Your business" /><label className="grid gap-2 text-sm font-bold">Service Needed<select name="service" required defaultValue="" className="h-12 rounded-md border border-input bg-background px-3 font-normal outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option value="" disabled>Select a service</option>{services.map((service) => <option key={service.title}>{service.title}</option>)}</select></label><label className="grid gap-2 text-sm font-bold md:col-span-2">Budget<select name="budget" required defaultValue="" className="h-12 rounded-md border border-input bg-background px-3 font-normal outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option value="" disabled>Select a budget range</option><option>Under ₦250,000</option><option>₦250,000 – ₦500,000</option><option>₦500,000 – ₦1,000,000</option><option>Above ₦1,000,000</option><option>Let&apos;s discuss</option></select></label><label className="grid gap-2 text-sm font-bold md:col-span-2">Project Details<textarea name="details" required minLength={20} maxLength={1500} rows={5} placeholder="Tell us about your goals, audience and ideal timeline..." className="rounded-md border border-input bg-background p-3 font-normal outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></label><Button type="submit" className="md:col-span-2">Send Project Enquiry <ArrowRight size={18} /></Button></form>
