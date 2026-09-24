@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "../components/button";
-import logoAsset from "../assets/adeleke-hub-agency-transparent.png.asset.json";
+const logoUrl = "/logo.png";
 import heroImage from "../assets/agency-hero.jpg";
 import atelierNineImage from "../assets/portfolio/atelier-nine.jpg";
 import oriTableImage from "../assets/portfolio/ori-table.jpg";
@@ -161,7 +161,7 @@ function AgencyPage() {
       <header className="sticky top-0 z-50 border-b border-border/70 bg-background/95 backdrop-blur-md">
         <div className="site-container grid min-h-32 grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-2 lg:min-h-36">
           <a href="#home" aria-label="Adeleke Hub Agency home" className="flex min-w-0 items-center self-stretch py-1">
-            <img src={logoAsset.url} alt="Adeleke Hub Agency" width={500} height={500} className="h-auto w-[120px] shrink-0 object-contain sm:w-[132px] lg:w-[140px] xl:w-[160px]" />
+            <img src={logoUrl} alt="Adeleke Hub Agency" width={500} height={500} className="h-auto w-[120px] shrink-0 object-contain sm:w-[132px] lg:w-[140px] xl:w-[160px]" />
           </a>
           <nav aria-label="Main navigation" className="hidden items-center gap-3 lg:flex xl:gap-6">
             {navItems.map((item) => <a key={item} href={`#${item.toLowerCase()}`} className="text-sm font-semibold text-foreground transition-colors hover:text-primary">{item}</a>)}
