@@ -180,7 +180,7 @@ function AgencyPage() {
       </header>
 
       <section className="home-body overflow-hidden border-b border-border bg-background">
-        <div className="site-container grid min-h-[calc(100svh-8rem)] items-center gap-12 py-12 lg:grid-cols-[.92fr_1.08fr] lg:gap-16 lg:py-14">
+        <div className="site-container grid items-center gap-12 py-14 lg:min-h-[720px] lg:grid-cols-[.92fr_1.08fr] lg:gap-16 lg:py-16">
           <div className="home-hero-copy relative z-10">
             <div className="mb-7 flex items-center gap-3"><span className="h-px w-10 bg-primary" /><p className="text-xs font-extrabold uppercase text-primary">Independent digital creative agency</p></div>
             <h1 className="home-display max-w-3xl text-[clamp(2.65rem,5.2vw,5.2rem)] font-bold leading-[1.02] text-foreground">We Build Digital Experiences That Help Businesses <span className="text-primary">Grow.</span></h1>
